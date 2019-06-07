@@ -1,0 +1,49 @@
+{% extends 'base.html'%}
+{% import 'bootstrap/wtf.html' as wtf %}
+{% block content %}
+<div class="container" style="margin-top:100px;">
+    <div class="row">
+        <!-- displaying  Username-->
+        <div class="col-md-4"></div>
+
+        <!--Display profile photo-->
+        <div class="col-md-4">
+
+            {% if user.profile_pic_path %}
+            <img style="border-radius:300px;margin:0px;" src="{{url_for('static',filename=user.profile_pic_path)}}"
+                alt="" class="img-thumbnail">
+            {%else%}
+            <p style="padding-bottom:15px;" class="text-center">No profile picture</p>
+            {% endif %}
+            <h3 class="text-center"><strong> {{user.username| capitalize}}</strong> </h3>
+            <hr>
+            <!--Displaying user bio-->
+            {% if user.bio %}
+            <p class="text-center"><strong> {{user.bio}}</strong> </p>
+            {%else%}
+            <p class="text-center"> {{user.username| capitalize}} has no bio </p>
+            {% endif %}
+            {% if current_user.is_authenticated %}
+            <p class="text-center"><a href="{{url_for('main.update_profile',uname=user.username)}}">Update your
+                    profile</a></p>
+
+            {%endif%}
+
+            <br><br>
+            <div class="col-md-4"></div>
+
+            <hr>
+        </div>
+
+    </div>
+</div>
+<div class="container">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+
+    </div>
+
+    <div class="col-md-2"></div>
+</div>
+<hr>
+{% endblock %}
