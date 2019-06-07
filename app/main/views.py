@@ -10,7 +10,6 @@ from .. import db
 @main.route('/')
 def index():
    chats = Chat.query.all()
-   print(chats)
    return render_template('./create_discussion.html', chats = chats)
 
 # @main.route('/live')
@@ -20,17 +19,6 @@ def index():
 #     return render_template('create_discussion.html', messages = messages)
 
 
-
-@socketio.on('my event')
-def handle_my_custom_event(json):
-   chat = Chat(chat= str(json.get('msg')))
-   print(chat,json)
-   db.session.add(chat)
-   db.session.commit()
-
-
-   socketio.emit('my response', json)
-   
 @main.route('/contact us',methods=['POST','GET'])
 def contact():
    form = ContactForm()
